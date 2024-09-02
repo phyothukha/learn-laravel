@@ -41,4 +41,4 @@ Route::get("/run", [FirstController::class, "run"]);
 
 Route::post("/exchange-to-mmk", [FirstController::class, "exChangeTommk"])->name("exchange-to-mmk");
 
-Route::view("/exchange-calculator", "exchange");
+Route::view("/exchange-calculator", "exchange")->name("exchange-calculator");

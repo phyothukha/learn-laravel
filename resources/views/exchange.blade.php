@@ -46,7 +46,7 @@
                          <option value="">Select</option>
                          <option value="USD">USD</option>
                          <option value="SGD">SGD</option>
-                         <option value="MMK">MMK</option>
+                         {{-- <option value="MMK">MMK</option> --}}
                          <option value="EUR">EUR</option>
 
                      </select>
@@ -75,7 +75,7 @@
                          <option value="">Select</option>
                          <option value="USD">USD</option>
                          <option value="SGD">SGD</option>
-                         <option value="MMK">MMK</option>
+                         {{-- <option value="MMK">MMK</option> --}}
                          <option value="EUR">EUR</option>
                      </select>
 
