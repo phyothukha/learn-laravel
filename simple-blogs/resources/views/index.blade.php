@@ -22,7 +22,7 @@
         <div class=" space-y-5">
 
             @if (session('status'))
-                <div role="alert" class="alert alert-info">
+                <div role="alert" class="alert alert-info rounded-md">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         class="h-6 w-6 shrink-0 stroke-current">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -55,6 +55,9 @@
                     </div>
                 </div>
             @endforeach
+        </div>
+        <div class=" mt-5">
+            {{ $posts->links('') }}
         </div>
 
     </div>
