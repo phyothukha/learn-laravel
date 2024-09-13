@@ -31,6 +31,16 @@
                     <span>{{ session('status') }}</span>
                 </div>
             @endif
+            <div>
+                <form action="{{ route('post.index') }}" method="GET">
+                    <div class="join w-full justify-end">
+                        <input class="input input-bordered join-item" name="keyword" value="{{ request('keyword') }}"
+                            placeholder="Search Post..." />
+                        <button type="submit" class="btn btn-outline join-item">Subscribe</button>
+                    </div>
+
+                </form>
+            </div>
 
             @foreach ($posts as $post)
                 <div class="card my-5 rounded-md border  ">
@@ -57,7 +67,8 @@
             @endforeach
         </div>
         <div class=" mt-5">
-            {{ $posts->links('') }}
+            {{-- {{ $posts->appends(request()->query())->links('') }} --}}
+            {{ $posts->links() }}
         </div>
 
     </div>

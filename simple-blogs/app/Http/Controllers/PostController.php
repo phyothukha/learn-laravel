@@ -14,7 +14,28 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate(5);
+        $posts = Post::when(request("keyword"), function ($q) {
+            $keyword = request("keyword");
+            $q
+                ->where("title", "like", "%$keyword%")
+                ->orWhere("description", "like", "%$keyword%");
+        })
+            ->paginate(10)->withQueryString(); //* ပို recommand ပေး;
+
+        // $posts = Post::where("id", "<", 10)->get()->map(function ($post) {
+        //     $post->title = strtoupper($post->title);
+        //     $post->user_id = rand(1, 20);
+        //     return $post;
+        // });
+
+        // $posts = Post::paginate(10)->through(function ($post) {
+        //     $post->title = strtoupper($post->title);
+        //     $post->user_id = rand(2, 30);
+        //     return $post;
+        // });
+
+
+        // return $posts;
         return  view("index", compact("posts"));
     }
 
