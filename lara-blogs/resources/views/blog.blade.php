@@ -1,10 +1,9 @@
 <x-app-layout>
 
-
     <div class="breadcrumbs text-sm">
         <ul>
             <li><a>Home</a></li>
-            <li>Dashboard</li>
+            <li>Blogs</li>
         </ul>
     </div>
     <div class="max-w-7xl mx-auto my-3">
@@ -14,5 +13,4 @@
             </div>
         </div>
     </div>
-
 </x-app-layout>
