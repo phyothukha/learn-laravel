@@ -30,6 +30,7 @@ class PostFactory extends Factory
             "excerpt" => Str::words($description, 50, "..."),
             "category_id" => Category::inRandomOrder()->first()->id,
             "user_id" => User::inRandomOrder()->first()->id,
+            "featured_image" => $this->faker->imageUrl()
         ];
     }
 }

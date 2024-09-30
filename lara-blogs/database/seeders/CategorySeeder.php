@@ -15,16 +15,14 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->create();
-        //
-        // $categories = ["IT News", "Food & Drinks", "Sport", "Travel", "Music"];
-        // foreach ($categories as $category) {
-        //     Category::factory()->create([
-        //         "title" => $category,
-        //         "slug" => Str::slug($category),
-        //         "user_id" => rand()
 
-        //     ]);
-        // }
+        $categories = ["IT News", "Food & Drinks", "Sport", "Travel", "Music"];
+        foreach ($categories as $category) {
+            Category::factory()->create([
+                "title" => $category,
+                "slug" => Str::slug($category),
+                "user_id" => User::inRandomOrder()->first()->id,
+            ]);
+        }
     }
 }
