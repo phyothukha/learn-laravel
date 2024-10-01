@@ -1,5 +1,5 @@
 <div class="flex w-full gap-3">
-    <div class="w-1/4 border p-2 max-h-screen bg-white overflow-hidden shadow-sm">
+    <div class="w-1/4 border p-2 min-h-screen my-3 bg-white overflow-hidden shadow-sm">
         <div class="flex flex-col gap-y-2 h-full">
             <div class="flex flex-col gap-2">
                 <p>Dashboard link</p>

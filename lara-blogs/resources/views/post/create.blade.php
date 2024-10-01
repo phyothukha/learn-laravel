@@ -7,7 +7,7 @@
         </ul>
     </div>
     <div class="max-w-7xl mx-auto">
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg my-5">
             <div class="p-6 text-gray-900">
                 <h4 class=" text-xl font-bold">Create Post</h4>
                 <div class="divider"></div>
