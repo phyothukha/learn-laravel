@@ -79,9 +79,9 @@
                                 </div>
                             @enderror
 
-                            @if ($post->featured_image)
-                                <img {{-- src="{{ '/storage/image/V0RKnbgI5R3PmATcaRhH8UsnPSC8YVzYdtmKwyIj.png' }}" --}} src="{{ asset('storage/' . $post->featured_image) }}"
-                                    class=" h-[300px] w-[300px] my-10" alt="">
+                            @if (isset($post->featured_image))
+                                <img src="{{ $post->featured_image }}" class=" h-[300px] w-[300px] my-10"
+                                    alt="">
                             @endif
                         </label>
                         <button type="submit" class=" btn btn-primary">Update Posts</button>

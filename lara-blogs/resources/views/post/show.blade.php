@@ -57,6 +57,10 @@
                     </div>
 
                 </div>
+
+                @if ($post->featured_image)
+                    <img src="{{ $post->featured_image }}" class=" w-full h-full object-fill my-10" alt="">
+                @endif
                 <h1 class=" font-bold text-lg mb-2">{{ $post->title }}</h1>
                 <p class=" text-sm font-medium text-base-content leading-loose">{{ $post->description }}</p>
 

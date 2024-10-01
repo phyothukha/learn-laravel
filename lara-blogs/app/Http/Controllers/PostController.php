@@ -17,7 +17,13 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->paginate(10);
+        $posts = Post::When(request('keyword'), function ($q) {
+            $keyword = request('keyword');
+            $q->orWhere('title', 'like', "%$keyword%")
+                ->orWhere("description", "like", "%$keyword%");
+        })
+            ->latest()
+            ->paginate(10)->withQueryString();
         return view("post.index", compact('posts'));
     }
 
@@ -43,12 +49,9 @@ class PostController extends Controller
         $post->user_id = Auth::id();
         $post->category_id = $request->category;
         if ($request->hasFile('featured_image')) {
-            $newName = uniqid() . "_featured_image." . $request->file('featured_image')->extension();
-            // $request->file('featured_image')->store('/public', $newName);
-            $request->file('featured_image')->store('image');
 
-            // return $request;
-            $post->featured_image = $request->featured_image;
+            $image = $request->file('featured_image')->store('image');
+            $post->featured_image = '/storage/' . $image;
         }
         $post->save();
         return redirect()->route("post.index")->with("status", $post->title . 'is added Successfully');
@@ -83,14 +86,14 @@ class PostController extends Controller
         $post->user_id = Auth::id();
         $post->category_id = $request->category;
         if ($request->hasFile('featured_image')) {
-            //delete old photo
+
             if (isset($post->featured_image)) {
 
                 Storage::delete($post->featured_image);
             }
             //update image
             $image = $request->file('featured_image')->store('image');
-            $post->featured_image = $image;
+            $post->featured_image = '/storage/' . $image;
         }
         $post->save();
         return redirect()->route("post.index")->with("status", $post->title . 'is updated Successfully!');
