@@ -18,14 +18,14 @@
                             <input name="title" value="{{ old('title') }}"
                                 class="input w-full input-bordered bg-white  join-item @error('title')input-error
                             @enderror"
-                                placeholder="Search" />
+                            placeholder="Create Category" />
                             @error('title')
                                 <div class="label">
                                     <span class="label-text-alt text-error">{{ $message }}</span>
                                 </div>
                             @enderror
                         </div>
-                        <button class="btn btn-primary join-item">Search</button>
+                        <button class="btn btn-primary join-item">Create</button>
                     </div>
                 </form>
             </div>

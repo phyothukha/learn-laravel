@@ -29,6 +29,13 @@
                     {{ __('Add Post') }}
                 </x-nav-link>
             </div>
+            <div class="flex flex-col gap-2">
+                <p>User Management</p>
+                <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
+                    {{ __('Users') }}
+                </x-nav-link>
+
+            </div>
         </div>
     </div>
     <div class="w-3/4">

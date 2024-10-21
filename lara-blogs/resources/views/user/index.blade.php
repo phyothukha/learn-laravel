@@ -3,13 +3,13 @@
     <div class="breadcrumbs text-sm">
         <ul>
             <li><a>Home</a></li>
-            <li>Posts</li>
+            <li>User</li>
         </ul>
     </div>
     <div class="max-w-7xl mx-auto my-3">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
             <div class="p-6 text-gray-900">
-                <h1 class=" text-xl font-bold">Post Lists</h1>
+                <h1 class=" text-xl font-bold">User Lists</h1>
                 <div class="divider"></div>
                 <div class=" flex justify-between items-center my-3">
                     <div class=" flex items-center gap-2">
@@ -36,24 +36,21 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th class=" w-56">title</th>
-                                <th>Category</th>
-                                <th>Owner</th>
+                                <th class=" w-56">Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
                                 <th>Date</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($posts as $post)
+                            @forelse ($users as $user)
                                 <tr>
-                                    <th>{{ $post->id }}</th>
-                                    <td>{{ $post->title }}</td>
-                                    <td>
-                                        {{ \App\Models\Category::find($post->category_id)->title }}
-                                    </td>
-                                    <td>
-                                        {{ \App\Models\User::find($post->user_id)->name }}
-                                    </td>
+                                    <th>{{ $user->id }}</th>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td></td>
+
                                     <td class=" w-40">
                                         <p class=" flex items-center gap-1">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -61,7 +58,7 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
                                             </svg>
-                                            {{ $post->created_at->format('d M, Y') }}
+                                            {{ $user->created_at->format('d M, Y') }}
                                         </p>
                                         <p class=" flex items-center gap-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -69,11 +66,11 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                             </svg>
-                                            {{ $post->created_at->format('h : m A') }}
+                                            {{ $user->created_at->format('h : m A') }}
                                         </p>
                                     </td>
                                     <td class=" w-36">
-                                        <a href="{{ route('post.show', $post->id) }}"
+                                        <a href="{{ route('post.show', $user->id) }}"
                                             class=" btn btn-outline  btn-primary btn-xs">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor" class="size-3">
@@ -85,8 +82,8 @@
 
                                         </a>
 
-                                        @can('update', $post)
-                                            <a href="{{ route('post.edit', $post->id) }}"
+                                        @can('update', $user)
+                                            <a href="{{ route('post.edit', $user->id) }}"
                                                 class=" btn btn-outline btn-primary btn-xs">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                     stroke-width="1.5" stroke="currentColor" class="size-3">
@@ -95,8 +92,8 @@
                                                 </svg>
                                             </a>
                                         @endcan
-                                        @can('delete', $post)
-                                            <form class=" inline-block" action="{{ route('post.destroy', $post->id) }}"
+                                        @can('delete', $user)
+                                            <form class=" inline-block" action="{{ route('post.destroy', $user->id) }}"
                                                 method="POST">
                                                 @csrf
                                                 @method('delete')
@@ -127,7 +124,7 @@
                     </table>
 
                     <div>
-                        {{ $posts->onEachSide(1)->links('') }}
+                        {{ $users->onEachSide(1)->links('') }}
                     </div>
                 </div>
             </div>
