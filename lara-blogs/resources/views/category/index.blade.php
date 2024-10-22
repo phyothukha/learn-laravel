@@ -18,7 +18,9 @@
                             <tr>
                                 <th>#</th>
                                 <th>title</th>
-                                <th>Owner</th>
+                                @notAuthor
+                                    <th>Owner</th>
+                                @endnotAuthor
                                 <th>Control</th>
                                 <th>Date</th>
                             </tr>
@@ -33,9 +35,11 @@
                                             {{ $category->slug }}
                                         </div>
                                     </td>
-                                    <td>
-                                        {{ App\Models\User::find($category->user_id)->name }}
-                                    </td>
+                                    @notAuthor
+                                        <td>
+                                            {{ App\Models\User::find($category->user_id)->name }}
+                                        </td>
+                                    @endnotAuthor
                                     <td>
                                         {{-- Quality Control Specialist --}}
                                         @can('update', $category)

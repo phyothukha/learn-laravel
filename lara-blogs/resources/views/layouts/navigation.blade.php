@@ -9,18 +9,7 @@
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                     </a>
                 </div>
-                <!-- Navigation Links -->
-                {{-- @auth
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                            {{ __('Dashboard') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('blog')" :active="request()->routeIs('blog')">
-                            {{ __('Blog') }}
-                        </x-nav-link>
-                    </div>
-                @endauth --}}
-                {{-- @endguest --}}
+
             </div>
 
             <!-- Settings Dropdown -->
@@ -30,7 +19,6 @@
                         <button
                             class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                             <div>{{ Auth::user()->name }}</div>
-
                             <div class="ms-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 20 20">
@@ -40,9 +28,13 @@
                                 </svg>
                             </div>
                         </button>
+                        {{-- <h1 class=" font-bold">{{ Auth::user()->role }}</h1> --}}
                     </x-slot>
 
                     <x-slot name="content">
+                        <x-dropdown-link
+                            class=" uppercase pointer-events-none">{{ Auth::user()->role }}</x-dropdown-link>
+
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
@@ -93,6 +85,8 @@
             </div>
 
             <div class="mt-3 space-y-1">
+                <x-dropdown-link class=" uppercase pointer-events-none">{{ Auth::user()->role }}</x-dropdown-link>
+
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>

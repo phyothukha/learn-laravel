@@ -38,7 +38,9 @@
                                 <th>#</th>
                                 <th class=" w-56">title</th>
                                 <th>Category</th>
-                                <th>Owner</th>
+                                @admin
+                                    <th>Owner</th>
+                                @endadmin
                                 <th>Date</th>
                                 <th>Action</th>
                             </tr>
@@ -48,9 +50,11 @@
                                 <tr>
                                     <th>{{ $post->id }}</th>
                                     <td>{{ $post->title }}</td>
-                                    <td>
-                                        {{ \App\Models\Category::find($post->category_id)->title }}
-                                    </td>
+                                    @admin
+                                        <td>
+                                            {{ \App\Models\Category::find($post->category_id)->title }}
+                                        </td>
+                                    @endadmin
                                     <td>
                                         {{ \App\Models\User::find($post->user_id)->name }}
                                     </td>

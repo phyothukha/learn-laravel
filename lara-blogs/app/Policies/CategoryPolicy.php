@@ -8,6 +8,11 @@ use Illuminate\Auth\Access\Response;
 
 class CategoryPolicy
 {
+
+    public function before(User $user)
+    {
+        return $user->role === 'admin';
+    }
     /**
      * Determine whether the user can view any models.
      */
@@ -51,10 +56,16 @@ class CategoryPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Category $category): bool {}
+    public function restore(User $user, Category $category): bool
+    {
+        return true;
+    }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Category $category): bool {}
+    public function forceDelete(User $user, Category $category): bool
+    {
+        return true;
+    }
 }

@@ -13,6 +13,16 @@
                 {{ __("You're logged in!") }}
                 <br>
                 {{ Auth::user() }}
+                <br>
+                ----
+                <br>
+                @myName('axas')
+                <br>
+                @aaa(false)
+                    hello nay kaung lar
+                @endaaa
+
+                
             </div>
         </div>
     </div>
