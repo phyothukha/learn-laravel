@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string("slug");
             $table->longText("description");
             $table->text("excerpt");
-            $table->foreignId("category_id")->constrained()->cascadeOnDelete();
-            $table->foreignId("user_id")->constrained()->cascadeOnDelete();
+            $table->foreignId("category_id")->constrained()->cascadeOnUpdate();
+            $table->foreignId("user_id");
             $table->timestamps();
         });
     }
