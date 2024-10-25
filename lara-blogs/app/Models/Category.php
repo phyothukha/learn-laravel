@@ -16,9 +16,13 @@ class Category extends Model
 
     public function posts()
     {
-        return $this->hasMany(Post::class);
+        return $this->hasOne(Post::class)->latestOfMany();
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
-
 
 //Lorem Ipsum Nay Kaun g Lar Bar Nyar Thar Ra Kar Nay Kyer Kwar Si Taing Gyi Pell Lhlowl. ! htoke Mha 100 Bl , Ma Kyike Yin Pyn ll> Ok Lar

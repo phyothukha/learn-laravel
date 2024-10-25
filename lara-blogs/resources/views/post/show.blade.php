@@ -1,5 +1,6 @@
 <x-app-layout>
 
+
     <div class="breadcrumbs text-sm">
         <ul>
             <li><a>Home</a></li>
@@ -20,7 +21,8 @@
                                 clip-rule="evenodd" />
                         </svg>
                         <span>
-                            {{ \App\Models\Category::find($post->category_id)->title }}
+
+                            {{$post->category->title}}
                         </span>
                     </div>
                     <div class="badge badge-outline space-x-1">
@@ -29,7 +31,8 @@
                                 d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
                         </svg>
                         <span>
-                            {{ \App\Models\User::find($post->user_id)->name }}
+
+                            {{$post->user->name}}
                         </span>
                     </div>
                     <div class="badge badge-outline space-x-1">

@@ -1,5 +1,4 @@
 <x-app-layout>
-
     <div class="breadcrumbs text-sm">
         <ul>
             <li><a>Home</a></li>
@@ -37,7 +36,7 @@
                                     </td>
                                     @notAuthor
                                         <td>
-                                            {{ App\Models\User::find($category->user_id)->name }}
+                                            {{$category->user->name??"Unknown"}}
                                         </td>
                                     @endnotAuthor
                                     <td>
@@ -71,7 +70,6 @@
                                         @endcan
                                     </td>
                                     <td>
-
                                         <p class=" flex items-center gap-1">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor" class="size-4">

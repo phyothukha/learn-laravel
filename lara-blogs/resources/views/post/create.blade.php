@@ -26,6 +26,28 @@
                             </div>
                         @enderror
                     </label>
+
+                    <!-- Photos -->
+
+                    <label class="form-control w-full max-w-full">
+                        <div class="label">
+                            <span class="label-text @error('photos') text-error @enderror ">Photos</span>
+                        </div>
+                        <input type="file" name="photos[]" value="{{ old('photos') }}"
+                            multiple
+                            class="file-input file-input-bordered w-full max-w-full @error('photos') file-input-error
+                        @enderror" />
+                        @error('photos')
+                            <div class="label">
+                                <span class="label-text-alt text-error">{{ $message }}</span>
+                            </div>
+                        @enderror
+                        @error('photos.*')
+                            <div class="label">
+                                <span class="label-text-alt text-error">{{ $message }}</span>
+                            </div>
+                        @enderror
+                    </label>
                     {{-- Category --}}
                     <label class="form-control w-full max-w-full">
                         <div class=" label">
@@ -33,7 +55,6 @@
                         </div>
                         <select name="category"
                             class="select select-bordered w-full max-w-full @error('category') select-error @enderror ">
-
                             @foreach (App\Models\Category::all() as $category)
                                 <option value="{{ $category->id }}"
                                     {{ $category->id == old('category') ? 'selected' : '' }}>{{ $category->title }}

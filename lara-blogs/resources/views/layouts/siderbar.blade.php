@@ -36,6 +36,7 @@
                 </x-nav-link>
 
             </div>
+
         </div>
     </div>
     <div class="w-3/4">

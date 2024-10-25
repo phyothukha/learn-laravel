@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
@@ -15,7 +15,6 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-
         $categories = ["IT News", "Food & Drinks", "Sport", "Travel", "Music"];
         foreach ($categories as $category) {
             Category::factory()->create([

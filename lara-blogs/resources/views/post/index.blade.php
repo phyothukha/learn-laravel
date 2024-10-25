@@ -23,7 +23,6 @@
                                 </svg>
                             </a>
                         @endif
-
                     </div>
                     <form class="join" action="{{ route('post.index') }}" method="get">
                         <input value="{{ request('keyword') }}" class="input input-bordered join-item" name="keyword"
@@ -52,11 +51,11 @@
                                     <td>{{ $post->title }}</td>
                                     @admin
                                         <td>
-                                            {{ \App\Models\Category::find($post->category_id)->title }}
+                                            {{$post->category->title}}
                                         </td>
                                     @endadmin
                                     <td>
-                                        {{ \App\Models\User::find($post->user_id)->name }}
+                                        {{$post->user->name}}
                                     </td>
                                     <td class=" w-40">
                                         <p class=" flex items-center gap-1">

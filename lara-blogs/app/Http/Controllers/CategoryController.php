@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Gate;
 
 class CategoryController extends Controller
 {
-
     function __construct()
     {
         // $this->middleware('testing:10');
@@ -22,7 +21,10 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::latest("id")
-            ->when(Auth::user()->role === 'author', fn($q) => $q->where('user_id', Auth::id()))
+            ->when(
+                Auth::user()->role === "author",
+                fn($q) => $q->where("user_id", Auth::id())
+            )
             ->get();
         return view("category.index", compact("categories"));
     }
@@ -44,7 +46,9 @@ class CategoryController extends Controller
         $category->slug = Str::slug($request->title);
         $category->user_id = Auth::id();
         $category->save();
-        return redirect()->route("category.index")->with("status", $category->title . " is Added Successfully!");
+        return redirect()
+            ->route("category.index")
+            ->with("status", $category->title . " is Added Successfully!");
     }
 
     /**
@@ -61,9 +65,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-
-        Gate::authorize('update', $category);
-        return view("category.edit", compact('category'));
+        Gate::authorize("update", $category);
+        return view("category.edit", compact("category"));
     }
 
     /**
@@ -71,12 +74,13 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-
-        Gate::authorize('update', $category);
+        Gate::authorize("update", $category);
         $category->title = $request->title;
         $category->slug = Str::slug($request->title);
         $category->update();
-        return redirect()->route("category.index")->with("status", $category->title . "is updated Successfully!");
+        return redirect()
+            ->route("category.index")
+            ->with("status", $category->title . "is updated Successfully!");
     }
 
     /**
@@ -84,9 +88,11 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        Gate::authorize('delete', $category);
+        Gate::authorize("delete", $category);
         $categoryTitle = $category->title;
         $category->delete();
-        return redirect()->route("category.index")->with("status", $categoryTitle . ' is deleted Successfully!');
+        return redirect()
+            ->route("category.index")
+            ->with("status", $categoryTitle . " is deleted Successfully!");
     }
 }
