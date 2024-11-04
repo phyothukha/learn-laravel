@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdatePostRequest extends FormRequest
 {
@@ -21,10 +22,8 @@ class UpdatePostRequest extends FormRequest
      */
     public function rules(): array
     {
-
-
         return [
-            "title" =>"required|min:3" . $this->route("post")->id,
+            "title" =>"required:string|min:3|unique:posts,title,". $this->route("post")->id,
             "category" => "required|exists:categories,id",
             "description" => "required|min:10",
             "photos.*" => "mimes:jpg,png|file|max:512",

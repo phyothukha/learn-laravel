@@ -119,6 +119,8 @@ $photoPost='/storage/'.$postPhoto;
             $post->featured_image = "/storage/" . $image;
         }
 
+        if($request->photos){
+
         foreach ($request->photos as $photo) {
             // 1) saving file in storage
             $postPhoto = $photo->store("photo");
@@ -130,8 +132,10 @@ $photoPost='/storage/'.$postPhoto;
             $photo->name = $photoPost;
             $photo->save();
         }
+        }
 
         $post->save();
+
         return redirect()
             ->route("post.index")
             ->with("status", $post->title . "is updated Successfully!");

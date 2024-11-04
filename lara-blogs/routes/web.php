@@ -6,13 +6,16 @@ use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
-use App\Http\Middleware\Testing;
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
 // Redirect root to login
-Route::get("/", function () {
-    return redirect("login");
-});
+
+Route::get('/',[PageController::class,"index"])->name("page.index");
+Route::get("/detail/{id}",[PageController::class,"detail"])->name("page.detail");
+//Route::get("/", function () {
+//    return redirect("login");
+//});
 
 // Dashboard route, protected by authentication and email verification
 Route::get("/dashboard", fn() => view("dashboard"))
