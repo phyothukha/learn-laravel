@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\NationController;
+use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -24,6 +25,8 @@ Route::get("/blog", fn() => view("blog"))
     ->middleware(["auth", "verified"])
     ->name("blog");
 
+Route::get("/file-test",fn()=> \Illuminate\Support\Facades\Storage::allFiles());
+
 // Routes protected by authentication
 Route::middleware("auth")->group(function () {
     // Profile routes
@@ -37,13 +40,14 @@ Route::middleware("auth")->group(function () {
         "profile.destroy"
     );
 
+
     // Category routes
     Route::resource("category", CategoryController::class);
     // ->middleware(Testing::class . ':10');
 
     // Post routes
     Route::resource("post", PostController::class);
-
+    Route::resource("photo", PhotoController::class);
     Route::resource("user", UserController::class);
     Route::resource("nation", NationController::class);
 });

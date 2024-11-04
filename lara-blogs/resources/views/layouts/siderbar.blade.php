@@ -9,6 +9,10 @@
                 <x-nav-link :href="route('blog')" :active="request()->routeIs('blog')">
                     {{ __('Blog') }}
                 </x-nav-link>
+
+                <x-nav-link :href="route('photo.index')" :active="request()->routeIs('photo.index')">
+                    {{ __('Gallery') }}
+                </x-nav-link>
             </div>
             <div class="flex flex-col gap-2">
                 <p>Category Management</p>

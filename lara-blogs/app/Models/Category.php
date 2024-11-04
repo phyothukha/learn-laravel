@@ -16,7 +16,7 @@ class Category extends Model
 
     public function posts()
     {
-        return $this->hasOne(Post::class)->latestOfMany();
+        return $this->hasMany(Post::class);
     }
 
     public function user()

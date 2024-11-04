@@ -21,11 +21,14 @@ class UpdatePostRequest extends FormRequest
      */
     public function rules(): array
     {
+
+
         return [
-            "title" => "required|min:3|unique:posts,title," . $this->route("post")->id,
+            "title" =>"required|min:3" . $this->route("post")->id,
             "category" => "required|exists:categories,id",
             "description" => "required|min:10",
-            "featured_image" => "nullable|mimes:png,jpg|file|max:512"
+            "photos.*" => "mimes:jpg,png|file|max:512",
+            "featured_image" => "nullable|mimes:png,jpg|file|max:512",
         ];
     }
 }

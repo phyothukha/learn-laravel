@@ -28,6 +28,7 @@ class PostController extends Controller
             );
         })
             ->latest()
+            ->with(["category","user"])
             ->paginate(10)
             ->withQueryString();
         return view("post.index", compact("posts"));
@@ -63,7 +64,7 @@ class PostController extends Controller
         foreach ($request->photos as $photo) {
             // 1) saving file in storage
             $postPhoto = $photo->store("photo");
-            $photoPost = "/storage/" . $postPhoto;
+$photoPost='/storage/'.$postPhoto;
 
             // 2) saving database field name
             $photo = new Photo();
@@ -113,10 +114,23 @@ class PostController extends Controller
             if (isset($post->featured_image)) {
                 Storage::delete($post->featured_image);
             }
-            //update image
+            // update image
             $image = $request->file("featured_image")->store("image");
             $post->featured_image = "/storage/" . $image;
         }
+
+        foreach ($request->photos as $photo) {
+            // 1) saving file in storage
+            $postPhoto = $photo->store("photo");
+            $photoPost='/storage/'.$postPhoto;
+
+            // 2) saving database field name
+            $photo = new Photo();
+            $photo->Post_id = $post->id;
+            $photo->name = $photoPost;
+            $photo->save();
+        }
+
         $post->save();
         return redirect()
             ->route("post.index")
@@ -132,7 +146,12 @@ class PostController extends Controller
             return abort(403, "U are not allowed to delete");
         }
         $postTitle = $post->title;
-        Storage::delete($post->featured_image);
+        Storage::delete('image/'. $post->featured_image);
+
+        foreach ($post->photos as $photo) {
+            Storage::delete('photo/'.$photo->name);
+            $photo->delete();
+        }
         $post->delete();
         return redirect()
             ->route("post.index")

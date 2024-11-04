@@ -7,12 +7,12 @@
             <li>Posts</li>
         </ul>
     </div>
+
     <div class="max-w-7xl mx-auto my-3">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900">
                 <h4 class=" text-xl font-bold">Post Lists</h4>
                 <div class="divider"></div>
-
                 <div class=" space-x-2 my-5">
                     <div class="badge badge-outline space-x-1">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-3">
@@ -21,8 +21,7 @@
                                 clip-rule="evenodd" />
                         </svg>
                         <span>
-
-                            {{$post->category->title}}
+                            {{ $post->category->title }}
                         </span>
                     </div>
                     <div class="badge badge-outline space-x-1">
@@ -31,8 +30,7 @@
                                 d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
                         </svg>
                         <span>
-
-                            {{$post->user->name}}
+                            {{ $post->user->name }}
                         </span>
                     </div>
                     <div class="badge badge-outline space-x-1">
@@ -66,7 +64,9 @@
                 @endif
                 <h1 class=" font-bold text-lg mb-2">{{ $post->title }}</h1>
                 <p class=" text-sm font-medium text-base-content leading-loose">{{ $post->description }}</p>
-
+                @foreach ($post->photos as $photo)
+                    <img src="{{ $photo->name }}" class=' w-[80px] h-[80px] inline-flex object-contain  my-4 ' />
+                @endforeach
                 <div class=" w-full flex justify-between my-5">
                     <a href="{{ route('post.create') }}" class=" btn btn-outline-primary">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-4">
@@ -79,9 +79,9 @@
                             <path
                                 d="M3 4.75a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM6.25 3a.75.75 0 0 0 0 1.5h7a.75.75 0 0 0 0-1.5h-7ZM6.25 7.25a.75.75 0 0 0 0 1.5h7a.75.75 0 0 0 0-1.5h-7ZM6.25 11.5a.75.75 0 0 0 0 1.5h7a.75.75 0 0 0 0-1.5h-7ZM4 12.25a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM3 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" />
                         </svg>
-
                         Post Lists</a>
                 </div>
+
 
             </div>
         </div>

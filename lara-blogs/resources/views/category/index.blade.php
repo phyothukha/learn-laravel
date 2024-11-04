@@ -21,6 +21,7 @@
                                     <th>Owner</th>
                                 @endnotAuthor
                                 <th>Control</th>
+                                <th>Post Count</th>
                                 <th>Date</th>
                             </tr>
                         </thead>
@@ -36,8 +37,9 @@
                                     </td>
                                     @notAuthor
                                         <td>
-                                            {{$category->user->name??"Unknown"}}
+                                            {{$category->user->name}}
                                         </td>
+
                                     @endnotAuthor
                                     <td>
                                         {{-- Quality Control Specialist --}}
@@ -69,6 +71,10 @@
                                             </form>
                                         @endcan
                                     </td>
+
+
+                                    <td>{{$category->posts_count}}</td>
+
                                     <td>
                                         <p class=" flex items-center gap-1">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
