@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Sanctum\PersonalAccessToken;
+use Laravel\Sanctum\Sanctum;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('update-post', fn(User $user, Post $post) =>  $user->id === $post->user_id);
 
         Gate::define('delete-post', fn(User $user, Post  $post) => $user->id === $post->user_id);
+        Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
 
 
         Blade::directive('myName', function ($x) {

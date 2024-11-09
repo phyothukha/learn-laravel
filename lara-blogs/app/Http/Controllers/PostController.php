@@ -19,19 +19,19 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::When(request("keyword"), function ($q) {
-            $keyword = request("keyword");
-            $q->orWhere("title", "like", "%$keyword%")->orWhere(
-                "description",
-                "like",
-                "%$keyword%"
-            );
-        })
-            ->latest()
-            ->with(["category","user"])
-            ->paginate(10)
-            ->withQueryString();
-        return view("post.index", compact("posts"));
+//        $posts = Post::When(request("keyword"), function ($q) {
+//            $keyword = request("keyword");
+//            $q->orWhere("title", "like", "%$keyword%")->orWhere(
+//                "description",
+//                "like",
+//                "%$keyword%"
+//            );
+//        })
+//            ->latest()
+//            ->with(["category","user"])
+//            ->paginate(10)
+//            ->withQueryString();
+        return view("admin.post.index");
     }
 
     /**
@@ -40,7 +40,7 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view("post.create", compact("categories"));
+        return view("admin.post.create", compact("categories"));
     }
 
     /**
@@ -85,7 +85,7 @@ $photoPost='/storage/'.$postPhoto;
     public function show(Post $post)
     {
         Gate::authorize("view", $post);
-        return view("post.show", compact("post"));
+        return view("admin.post.show", compact("post"));
     }
 
     /**
@@ -93,7 +93,7 @@ $photoPost='/storage/'.$postPhoto;
      */
     public function edit(Post $post)
     {
-        return view("post.edit", compact("post"));
+        return view("admin.post.edit", compact("post"));
     }
 
     /**

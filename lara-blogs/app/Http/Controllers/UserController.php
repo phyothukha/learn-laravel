@@ -19,7 +19,7 @@ class UserController extends Controller
         })
             ->latest()
             ->paginate(10)->withQueryString();
-        return view("user.index", compact('users'));
+        return view("admin.user.index", compact('users'));
     }
 
     /**
