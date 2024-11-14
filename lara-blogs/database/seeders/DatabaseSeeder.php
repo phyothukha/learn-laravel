@@ -14,17 +14,15 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-//            NationSeeder::class,
-//            UserSeeder::class,
-//            CategorySeeder::class,
+            NationSeeder::class,
+            UserSeeder::class,
+            CategorySeeder::class,
             PostSeeder::class,
         ]);
 
-//        $photo=Storage::allFiles();
-//        array_shift($photo);
-//        Storage::delete($photo);
-//
-//
-//        echo "\e[96m Storage cleaning \n";
+        $photo=Storage::allFiles();
+        array_shift($photo);
+        Storage::delete($photo);
+        echo "\e[96m Storage cleaning \n";
     }
 }

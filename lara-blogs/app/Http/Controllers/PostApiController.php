@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class PostApiController extends Controller
 {
@@ -23,6 +24,7 @@ public  function  index()
 
 public  function show($slug){
     $post= Post::where('slug',$slug)->with(["category","user"])->first();
+
 
     return response()->json($post);
 }

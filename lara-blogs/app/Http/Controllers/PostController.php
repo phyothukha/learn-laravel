@@ -9,6 +9,7 @@ use App\Models\Photo;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -64,8 +65,7 @@ class PostController extends Controller
         foreach ($request->photos as $photo) {
             // 1) saving file in storage
             $postPhoto = $photo->store("photo");
-$photoPost='/storage/'.$postPhoto;
-
+            $photoPost='/storage/'.$postPhoto;
             // 2) saving database field name
             $photo = new Photo();
             $photo->Post_id = $post->id;
