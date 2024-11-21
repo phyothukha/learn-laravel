@@ -27,14 +27,19 @@ class CategoryController extends Controller
             )
             ->with('user')->withCount("posts")
             ->get();
-        return view("admin.category.index", compact("categories"));
+
+        $links= ['category'=>route('category.index')];
+        return view("admin.category.index", compact("categories",'links'));
     }
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view("admin.category.create");
+        $links= ['category'=>route('category.index'),'create-category'=>route('category.create')];
+
+
+        return view("admin.category.create",compact('links'));
     }
 
     /**
@@ -67,7 +72,8 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         Gate::authorize("update", $category);
-        return view("admin.category.edit", compact("category"));
+        $links= ['category'=>route('category.index'),"Edit Category"=>route('category.edit', $category)];
+        return view("admin.category.edit", compact("category",'links'));
     }
 
     /**

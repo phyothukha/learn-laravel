@@ -20,19 +20,21 @@ class PostController extends Controller
      */
     public function index()
     {
-//        $posts = Post::When(request("keyword"), function ($q) {
-//            $keyword = request("keyword");
-//            $q->orWhere("title", "like", "%$keyword%")->orWhere(
-//                "description",
-//                "like",
-//                "%$keyword%"
-//            );
-//        })
-//            ->latest()
-//            ->with(["category","user"])
-//            ->paginate(10)
-//            ->withQueryString();
-        return view("admin.post.index");
+        $posts = Post::When(request("keyword"), function ($q) {
+            $keyword = request("keyword");
+            $q->orWhere("title", "like", "%$keyword%")->orWhere(
+                "description",
+                "like",
+                "%$keyword%"
+            );
+        })
+            ->latest()
+            ->with(["category","user"])
+            ->paginate(10)
+            ->withQueryString();
+
+        $links=["posts"=>route('post.index')];
+        return view("admin.post.index",compact('posts','links'));
     }
 
     /**
@@ -41,7 +43,9 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view("admin.post.create", compact("categories"));
+
+        $links=["posts"=>route('post.index'),"create"=>route('post.create')];
+        return view("admin.post.create", compact("categories",'links'));
     }
 
     /**
@@ -85,7 +89,8 @@ class PostController extends Controller
     public function show(Post $post)
     {
         Gate::authorize("view", $post);
-        return view("admin.post.show", compact("post"));
+        $links=["posts"=>route('post.index'),"Detail Post"=>route('post.show', $post)];
+        return view("admin.post.show", compact("post","links"));
     }
 
     /**
@@ -93,7 +98,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view("admin.post.edit", compact("post"));
+        $links=["posts"=>route('post.index'),'Edit Post'=>route('post.edit', $post)];
+        return view("admin.post.edit", compact("post","links"));
     }
 
     /**
@@ -125,7 +131,6 @@ class PostController extends Controller
             // 1) saving file in storage
             $postPhoto = $photo->store("photo");
             $photoPost='/storage/'.$postPhoto;
-
             // 2) saving database field name
             $photo = new Photo();
             $photo->Post_id = $post->id;
@@ -133,9 +138,7 @@ class PostController extends Controller
             $photo->save();
         }
         }
-
         $post->save();
-
         return redirect()
             ->route("post.index")
             ->with("status", $post->title . "is updated Successfully!");

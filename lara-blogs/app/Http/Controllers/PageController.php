@@ -18,8 +18,9 @@ class PageController extends Controller
     {
 
         $post= Post::where("id",$id)->with(['category','user','photos'])->first();
+        $recentPost=Post::latest("id")->limit(5)->get();
 
-        return view("detail",compact("post"));
+        return view("detail",compact("post",'recentPost'));
 
     }
 

@@ -19,7 +19,8 @@ class UserController extends Controller
         })
             ->latest()
             ->paginate(10)->withQueryString();
-        return view("admin.user.index", compact('users'));
+        $links=['User'=>route("user.index")];
+        return view("admin.user.index", compact('users',"links"));
     }
 
     /**

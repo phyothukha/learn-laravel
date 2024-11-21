@@ -36,6 +36,22 @@
         </div>
         <div>
 
+
+
+            <div class=" border p-5 rounded-lg">
+
+            <h1 class=" text-xl font-bold">Recent Posts</h1>
+{{--                @dd($recentPost)--}}
+
+                @foreach($recentPost as $post)
+{{--                   <h1> {{$post->title}}</h1>--}}
+
+                    <x-category-view :post="$post"/>
+                @endforeach
+            </div>
+
+
+
         </div>
 
     </div>

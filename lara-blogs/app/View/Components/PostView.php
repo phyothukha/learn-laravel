@@ -33,7 +33,7 @@ class PostView extends Component
         })
             ->latest()
             ->with(["category","user"])
-            ->paginate(10)
+            ->paginate(5)
             ->withQueryString();
 
         return view('components.post-view',compact('posts'));

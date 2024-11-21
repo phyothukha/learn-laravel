@@ -15,7 +15,8 @@ class PhotoController extends Controller
      */
     public function index()
     {
- return view("admin.photo.index");
+        $links=['Photo'=>route('photo.index')];
+ return view("admin.photo.index",compact('links'));
     }
 
     /**
