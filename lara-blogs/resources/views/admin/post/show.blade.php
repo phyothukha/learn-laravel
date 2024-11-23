@@ -55,7 +55,10 @@
             <h1 class=" font-bold text-lg mb-2">{{ $post->title }}</h1>
             <p class=" text-sm font-medium text-base-content leading-loose">{{ $post->description }}</p>
             @foreach ($post->photos as $photo)
+
+{{--                @dd(storage_path($photo->name))--}}
                 <img src="{{ $photo->name }}" class=' w-[80px] h-[80px] inline-flex object-contain  my-4 '/>
+{{--                <img src="/storage/app/private/LHVw0QLKKGjDBKiukZVgyATGcuYyqCOd8tgRkeKY.jpg" alt="">--}}
             @endforeach
             <div class=" w-full flex justify-between my-5">
                 <a href="{{ route('post.create') }}" class=" btn btn-outline-primary">

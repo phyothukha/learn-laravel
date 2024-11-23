@@ -1,7 +1,8 @@
 <x-app-layout>
 
-<x-bread-crumb :links="$links">
+<x-bread-crumb :links="$links" />
     <div class="max-w-7xl mx-auto my-3">
+
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900">
                 <h1 class=" text-xl font-bold">Update Category</h1>
@@ -19,4 +20,5 @@
             </div>
         </div>
     </div>
+
 </x-app-layout>

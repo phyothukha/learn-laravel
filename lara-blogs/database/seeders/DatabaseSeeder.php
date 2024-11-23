@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $photo=Storage::allFiles();
+
         array_shift($photo);
         Storage::delete($photo);
         echo "\e[96m Storage cleaning \n";

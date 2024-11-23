@@ -8,8 +8,9 @@ use App\Models\Category;
 use App\Models\Photo;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -20,19 +21,13 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::When(request("keyword"), function ($q) {
-            $keyword = request("keyword");
-            $q->orWhere("title", "like", "%$keyword%")->orWhere(
-                "description",
-                "like",
-                "%$keyword%"
-            );
-        })
+        $posts = Post::search()
+            ->when(request()->trash,function($query){
+                $query->onlyTrashed();
+            })
             ->latest()
-            ->with(["category","user"])
             ->paginate(10)
             ->withQueryString();
-
         $links=["posts"=>route('post.index')];
         return view("admin.post.index",compact('posts','links'));
     }
@@ -45,6 +40,7 @@ class PostController extends Controller
         $categories = Category::all();
 
         $links=["posts"=>route('post.index'),"create"=>route('post.create')];
+
         return view("admin.post.create", compact("categories",'links'));
     }
 
@@ -53,6 +49,12 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
+
+//        DB::transaction(function(){
+
+        try {
+
+        Db::beginTransaction();
         $post = new Post();
         $post->title = $request->title;
         $post->slug = Str::slug($request->title);
@@ -65,22 +67,26 @@ class PostController extends Controller
             $post->featured_image = "/storage/" . $image;
         }
         $post->save();
-
-        foreach ($request->photos as $photo) {
-            // 1) saving file in storage
+        $savedPhoto=[];
+        foreach ($request->photos as $key=>$photo) {
             $postPhoto = $photo->store("photo");
             $photoPost='/storage/'.$postPhoto;
-            // 2) saving database field name
-            $photo = new Photo();
-            $photo->Post_id = $post->id;
-            $photo->name = $photoPost;
-            $photo->save();
+            $savedPhoto[$key]= [
+                "post_id"=>$post->id,
+                "name"=>$photoPost,
+            ];
         }
 
+        Photo::insert($savedPhoto);
         return redirect()
             ->route("post.index")
             ->with("status", $post->title . "is added Successfully");
-        // return $request->file();
+//        });
+            DB::commit();
+
+        }catch(\Exception $exception){
+DB::rollBack();
+        }
     }
 
     /**
@@ -133,7 +139,7 @@ class PostController extends Controller
             $photoPost='/storage/'.$postPhoto;
             // 2) saving database field name
             $photo = new Photo();
-            $photo->Post_id = $post->id;
+            $photo->post_id = $post->id;
             $photo->name = $photoPost;
             $photo->save();
         }
@@ -147,21 +153,33 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
+      $post=  Post::withTrashed()->findOrFail($id)->first();
         if (Gate::denies("delete", $post)) {
             return abort(403, "U are not allowed to delete");
         }
         $postTitle = $post->title;
-        Storage::delete('image/'. $post->featured_image);
+        if(request()->delete==='force'):
 
-        foreach ($post->photos as $photo) {
-            Storage::delete('photo/'.$photo->name);
-            $photo->delete();
-        }
-        $post->delete();
+        File::delete(public_path($post->featured_image));
+        File::delete($post->photos->map(fn($photo)=>public_path($photo->name))->toArray());
+        Photo::where("post_id",$post->id)->delete();
+        Post::withTrashed()->findOrFail($id)->forceDelete();
         return redirect()
             ->route("post.index")
             ->with("status", $postTitle . "is deleted successfully!");
+        elseif (request()->delete==='restore'):
+
+        Post::withTrashed()->findOrFail($id)->restore();
+        return redirect()
+                ->route("post.index")
+                ->with("status", $postTitle . "is restore successfully!");
+        else:
+            Post::withTrashed()->findOrFail($id)->delete();
+        return redirect()
+            ->route('post.index')
+            ->with('status', $postTitle . "is soft deleted successfully!");
+        endif;
     }
 }

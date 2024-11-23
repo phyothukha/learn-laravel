@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
+use App\Observers\PostObserver;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\DB;
@@ -29,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        DB::listen(fn($q)=>$q->sql);
+
         View::share('categories',Category::latest("id")->get());
         Gate::define('update-post', fn(User $user, Post $post) =>  $user->id === $post->user_id);
 
@@ -50,5 +51,16 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('notAuthor', function () {
             return Auth::user()->role !== 'author';
         });
+
+        Blade::if('trash',function (){
+           return request()->trash!=1;
+        });
+
+        DB::listen(function ($query) {
+            $query->sql;
+        });
+
+
+        Post::observe(PostObserver::class);
     }
 }
