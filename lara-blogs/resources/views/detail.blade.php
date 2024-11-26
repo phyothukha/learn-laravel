@@ -9,9 +9,6 @@
                         <a href="#" class=" badge badge-accent">
                             {{$post->category->title}}
                         </a>
-
-
-
                         <div class=" ">
                         @foreach($post->photos as $photo)
                         <img src="{{$photo->name}}" alt=""   class=" inline-block mx-auto object-contain h-52" >
@@ -28,24 +25,18 @@
                             href="{{route("page.index")}}"
                             class=" btn btn-primary ms-auto">All Post</a>
                     </div>
+                    <div class=" my-5 px-7">
+                        <h3 class=" text-xl font-bold">Post Qr Code</h3>
+                        {{\SimpleSoftwareIO\QrCode\Facades\QrCode::size(300)
+                        ->generate(request()->url())}}
+                    </div>
                 </div>
-
-
-
-
         </div>
         <div>
-
-
-
             <div class=" border p-5 rounded-lg">
 
             <h1 class=" text-xl font-bold">Recent Posts</h1>
-{{--                @dd($recentPost)--}}
-
                 @foreach($recentPost as $post)
-{{--                   <h1> {{$post->title}}</h1>--}}
-
                     <x-category-view :post="$post"/>
                 @endforeach
             </div>
@@ -56,6 +47,3 @@
 
     </div>
 @endsection
-
-
-

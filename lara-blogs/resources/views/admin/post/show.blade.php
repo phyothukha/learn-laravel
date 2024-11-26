@@ -1,7 +1,7 @@
 <x-app-layout xmlns:x-slot="http://www.w3.org/1999/xlink">
-<x-bread-crumb :links="$links"/>
+    <x-bread-crumb :links="$links"/>
 
-   <div class="max-w-7xl mx-auto my-3">
+    <div class="max-w-7xl mx-auto my-3">
         <x-card>
             <x-slot:title>Post Detail</x-slot:title>
             <div class=" space-x-2 my-5">
@@ -55,10 +55,7 @@
             <h1 class=" font-bold text-lg mb-2">{{ $post->title }}</h1>
             <p class=" text-sm font-medium text-base-content leading-loose">{{ $post->description }}</p>
             @foreach ($post->photos as $photo)
-
-{{--                @dd(storage_path($photo->name))--}}
                 <img src="{{ $photo->name }}" class=' w-[80px] h-[80px] inline-flex object-contain  my-4 '/>
-{{--                <img src="/storage/app/private/LHVw0QLKKGjDBKiukZVgyATGcuYyqCOd8tgRkeKY.jpg" alt="">--}}
             @endforeach
             <div class=" w-full flex justify-between my-5">
                 <a href="{{ route('post.create') }}" class=" btn btn-outline-primary">
