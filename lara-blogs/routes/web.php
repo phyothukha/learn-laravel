@@ -4,16 +4,19 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
+use Intervention\Image\Laravel\Facades\Image;
 
 // Redirect root to login
 
 Route::get('/',[PageController::class,"index"])->name("page.index");
+
 Route::get("/detail/{id}",[PageController::class,"detail"])->name("page.detail");
+
 Route::get("/categories/{category:slug}",[PageController::class,"postByCategory"])->name("page.category");
 
-// Dashboard route, protected by authentication and email verification
-Route::get("/dashboard", fn() => view("dashboard"))
-    ->middleware(["auth", "verified"])
+
+Route::get('dashboard',[\App\Http\Controllers\HomeController::class,'index'])
+    ->middleware(['auth',"verified"])
     ->name("dashboard");
 
 // Blog route, protected by authentication and email verification
